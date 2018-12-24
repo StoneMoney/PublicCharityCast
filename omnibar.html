@@ -1,0 +1,167 @@
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Changa+One|Roboto" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="countUp.js"></script>
+<script src="omnibar.js"></script>
+<link href="animate.css" rel="stylesheet">
+<style>
+#container {
+	width:100%;
+	height:100%;
+}
+#warning {
+	background-color:red;
+	border-style: solid;
+	border: 15px 15px 15px 15px;
+	border-color:yellow;
+	text-align:center;
+	font-size:7vh;
+}
+.hidden {
+	visibility:hidden;
+}
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-auto { font-size: 4.4vh; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+body {
+	margin: 0px;
+	font-family: 'Changa One', sans-serif;
+	background-color: black;
+}
+#taskbar {
+	display: grid;
+	grid-template-rows: [top] 4% [task-head] 94% [task-foot] 110% [bottom];
+	grid-template-columns: [start] repeat(18, 5vw [col-start]) auto [back];
+	grid-column-gap: .5vw;
+	position:fixed;
+	width: 99.99vw;
+	height: 5vh;
+	z-index: 9999999;
+	bottom:0px;
+	background-image: url("background2.png");
+	background-repeat: repeat-x;
+	background-size: 99.99vw auto;
+	border-top: 2px solid rgba(0,0,0,.2);
+	color:white;
+	user-select: none;
+}
+.home {
+	grid-column: start / col-start 2;
+	grid-row: top / bottom;
+	display: inline;
+	border-radius: 0px 5px 5px 0px; 
+	text-align:left;
+	color:white;
+	font-size: 6.5vh;
+	line-height: 4.5vh;
+	font-style: italic;
+	overflow:hidden;
+}
+#timer {
+	color:white;
+	font-size: 3.5vh;
+	text-shadow: 2px 2px #000;
+}
+.task {
+	grid-row: task-head / task-foot;
+	background-color: rgba(5,5,5,.5);
+	display: inline;
+	text-align:center;
+	font-size: 3vh;
+	border-radius: 3px; 
+}
+.t1 {
+	grid-column: col-start 2 / col-start 3;
+}
+.t2 {
+	grid-column: col-start 3 / col-start 13;
+	grid-row: top / bottom;
+	font-family: 'Roboto';
+	font-size: 4vh;
+}
+.t14 {
+	border-left: 5px solid rgba(255,255,255,.2);
+	grid-column: col-start 14 / col-start 16;
+	grid-row: top / bottom;
+	font-size: 4.2vh;
+	text-align: center;
+	z-index:11;
+}
+.t14bg {
+	grid-column: col-start 14 / col-start 18;
+	grid-row: top / bottom;
+	background-color:#081d26;
+	z-index:10;
+}
+.t17 {
+	grid-column: col-start 16 / back;
+	grid-row: top / bottom;
+	font-size: 4.4vh;
+	text-align:right;
+	vertical-align:middle;
+	z-index:10;
+}
+.active {
+	background-color: #8D85B3;
+}
+.placeholder {
+	height:5vh;
+	width: 10.5vw;
+	position:absolute;
+	background-color: rgba(4,4,4,.3);
+	color: rgba(255,255,255,.3);
+}
+.brand {
+	height:5vh;
+	width: 10.5vw;
+	z-index:1;
+}
+.charity {
+	height:5vh;
+	z-index:1;
+}
+</style>
+</head>
+<body>
+<div id="container">
+<div id="timer"></div>
+<div id="warning" class="hidden">
+PAGE SIZE MUST BE EXACTLY:<br>
+1920 WIDTH by 1080 HEIGHT<br>
+Help: http://github.com/CharityCast/wiki/setHeight
+</div>
+<div id="taskbar">
+	<div class="home">
+		<div class="placeholder"><div class="hometext">&nbsp;</div></div>
+		<img class="brand" src="brand-logo.png">
+	</div>
+	<div class="task t1 animated" id="barIcon">
+		<i class="material-icons md-auto md-light" id="barText">lock</i>
+	</div>
+	<div class="header t2 animated fadeInUp" id="mainText">
+	<canvas  id="canvasMain" style="width:100%;height:100%;>
+	</canvas>
+	</div>
+	<div class="t14bg"></div>
+	<div  class="t14">
+		&nbsp;$<a id="total">0</a>
+	</div>
+	<div class="t17">
+		<img class="charity" src="charity-logo.png">
+	</div>
+</div>
+</div>
+</body>
+</html>

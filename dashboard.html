@@ -1,0 +1,787 @@
+<html>
+<head>
+<title>CC Dashboard</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</head>
+<body class="bg-dark">
+<div class="container-fluid">
+	<nav id="navbar" class="navbar sticky-top navbar-expand-lg navbar-light bg-secondary mb-3" style="border-radius: 0px 0px 5px 5px;">
+	  <a class="navbar-brand" href="#">Charitycast Dashboard</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<div class="row container-fluid">
+			<a href="http://localhost:8001" class="btn btn-info">Config</a>&nbsp;
+			<a href="#" class="btn btn-danger" id="status">Not Connected</a>&nbsp;
+			<a href="#" class="btn btn-primary">Wiki</a>
+		</div>
+	  </div>
+	</nav>
+  <div class="row">
+    <div class="col-sm-12 col-lg-4 mb-3">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Create Goal</h5>
+				<p class="card-text">
+					<div class="input-group mb-3">
+					  <input type="text" class="form-control" placeholder="Goal Name" id="donationGoalName">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">$</span>
+					  </div>
+					  <input type="text" class="form-control" id="donationGoalTotal">
+					</div>
+				</p>
+				<a href="javascript:void(0)" class="btn btn-primary mb-3" id="donationGoalAddButton" onclick="donationGoalAdd()">Create/Update</a>
+				<h5 class="card-title">Modify Goals</h5>
+				<p class="card-text">
+					<select class="custom-select" id="donationGoalSelect">
+					  <option value="-1">Open this select menu</option>
+					</select>
+				</p>
+				<a href="javascript:void(0)" id="donationGoalModifyButton" class="btn btn-info" onclick="donationGoalModify()">Modify</a>
+				<a href="javascript:void(0)" id="donationGoalRemoveButton" class="btn btn-danger" onclick="donationGoalRemove()">Remove</a>
+			</div>
+		</div>
+    </div>
+    <div class="col-sm-12 col-lg-4 mb-3">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Goal Wheel</h5>
+				<p class="card-text">
+					<a href="#" class="btn btn-info" onclick="goalWheelSpin()" id="goalWheelSpinButton">SPIN!</a><i id="goalWheelSelection" class="ml-3" onclick="goalWheelClear()"></i>
+					<div class="row">
+						<div class="input-group col-10">
+						  <input type="text" class="form-control" placeholder="Goal Name" id="goalwheelItem">
+						</div>
+						<a href="javascript:void(0)" class="btn col-2 btn-primary" onclick="goalWheelAdd()" id="goalWheelAddButton">Add</a>
+					</div>
+				</p>
+				<h5 class="card-title">Preview & Remove Wheel Items</h5>
+				<p class="card-text">
+					<select class="custom-select" id="goalWheelSelect">
+					  <option value="-1">Open this select menu</option>
+					</select>
+				</p>
+				<a href="javascript:void(0)" class="btn btn-danger" onclick="goalWheelRemove()" id="goalWheelRemoveButton">Remove</a>
+			</div>
+		</div>
+    </div>
+    <div class="col-sm-12 col-lg-4 mb-3">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-1">Game Info</h5>
+					<p class="mb-2">Set up your schedule in config, or use force load. Force load is lost on server refresh or prev/next button</p>
+				<a href="javascript:void(0)" class="btn btn-danger" onclick="gameInfoPrev()" id="gameInfoPrevButton">Prev</a>
+				<a href="javascript:void(0)" class="btn btn-primary" onclick="gameInfoNext()" id="gameInfoNextButton">Next</a>
+				<p class="card-text">
+					<div class="input-group mb-3">
+					  <input type="text" class="form-control" placeholder="Game" id="gameInfoGame">
+					</div>
+					<div class="input-group mb-3">
+					  <input type="text" class="form-control" placeholder="Runner" id="gameInfoRunner">
+					</div>
+				</p>
+				<a href="javascript:void(0)" class="btn btn-warning" onclick="gameInfoForce()" id="gameInfoForceButton" hidden>Force Load</a>
+			</div>
+		</div>
+    </div>
+	<div class="col-sm-12 col-lg-4 mb-3">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Bidwar</h5>
+				<p class="card-text">
+					<div class="input-group mb-3">
+					  <input type="text" class="form-control" placeholder="Bidwar Name" id="bidWarName">
+					</div>
+					<div class="row">
+						<div class="input-group mb-3 col">
+						  <input type="text" class="form-control" placeholder="Option #1" id="bidWarOption1">
+						</div>
+						<div class="input-group mb-3 col">
+						  <div class="input-group-prepend">
+							<span class="input-group-text">$</span>
+						  </div>
+						  <input type="text" class="form-control" id="bidWarTotal1">
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-group mb-3 col">
+						  <input type="text" class="form-control" placeholder="Option #2" id="bidWarOption2">
+						</div>
+						<div class="input-group mb-3 col">
+						  <div class="input-group-prepend">
+							<span class="input-group-text">$</span>
+						  </div>
+						  <input type="text" class="form-control" id="bidWarTotal2">
+						</div>
+					</div>
+				</p>
+				<a href="javascript:void(0)" class="btn btn-primary mb-3" onclick="bidWarAdd()" id="bidWarAddButton">Create/Update</a>
+				<h5 class="card-title">Modify Bidwar</h5>
+				<p class="card-text">
+					<select class="custom-select mb-3" id="bidWarSelect">
+					  <option selected value="-1">Open this select menu</option>
+					</select>
+				</p>
+				<a href="javascript:void(0)" class="btn btn-info" onclick="bidWarModify()" id="bidWarModifyButton">Modify</a>
+				<a href="javascript:void(0)" class="btn btn-danger" onclick="bidWarRemove()" id="bidWarRemoveButton">Remove</a>
+			</div>
+		</div>
+    </div>
+	<div class="col-sm-12 col-lg-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Broadcast</h5>
+					Send a message via the omnibar<br>
+				<p class="card-text">
+					<div class="row">
+						<div class="input-group col-10">
+							<input type="text" class="form-control" placeholder="Message" id="broadcastText">
+						</div>
+						<a href="javascript:void(0)" class="btn col-2 btn-primary" onclick="broadcastSend()" id="broadcastButton">Send</a>
+					</div>
+				</p>
+			</div>
+		</div>
+    </div>
+	<div class="col-sm-12 col-lg-4 mb-3">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Create Prize</h5>
+				<p class="card-text">
+					<div class="input-group mb-3">
+					  <input type="text" class="form-control" placeholder="Prize Name" id="prizeName">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">$</span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Minimum Amount" id="prizeMinimum">
+					</div>
+				</p>
+				<a href="javascript:void(0)" class="btn btn-primary mb-3" id="prizeAddButton" onclick="prizeAdd()">Create/Update</a>
+				<h5 class="card-title">Modify Prizes</h5>
+				<p class="card-text">
+					<select class="custom-select" id="prizeSelect">
+					  <option value="-1">Open this select menu</option>
+					</select>
+				</p>
+				<a href="javascript:void(0)" id="prizeModifyButton" class="btn btn-info" onclick="prizeModify()">Modify</a>
+				<a href="javascript:void(0)" id="prizeRemoveButton" class="btn btn-danger" onclick="prizeRemove()">Remove</a>
+			</div>
+		</div>
+		</div>
+		<div class="col-sm-12 col-lg-4 mb-3">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Misc Messages</h5>
+					<p class="card-text">
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" placeholder="Text" id="miscText">
+						</div>
+					</p>
+					<a href="javascript:void(0)" class="btn btn-primary mb-3" id="miscAddButton" onclick="miscAdd()">Create/Update</a>
+					<h5 class="card-title">Remove Messages</h5>
+					<p class="card-text">
+						<select class="custom-select" id="miscSelect">
+							<option value="-1">Open this select menu</option>
+						</select>
+					</p>
+					<a href="javascript:void(0)" id="miscRemoveButton" class="btn btn-danger" onclick="miscRemove()">Remove</a>
+				</div>
+			</div>
+			</div>
+	<div class="col-sm-12 col-lg-4" hidden>
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Prizes</h5>
+					Check to show in rotation<br>
+				<p class="card-text">
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" class="custom-control-input" id="customCheck1">
+						  <label class="custom-control-label" for="customCheck1">Item 1</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" class="custom-control-input" id="customCheck2">
+						  <label class="custom-control-label" for="customCheck2">Item 1</label>
+						</div>
+					</div>
+				</p>
+				<a href="javascript:void(0)" class="btn btn-primary">Apply</a>
+			</div>
+		</div>
+    </div>
+  </div>
+  Created by @stonemoney [ngiano] (1-8-18 | b1.0)
+</div>
+<script>
+	websocket = new WebSocket("ws://localhost:9020/");
+	var statusBar = document.getElementById("status");
+	var navBar = document.getElementById("navbar");
+	var gwValue = 0;
+	var dgValue = 0;
+	var mcValue = 0;
+	var bwValue = 0;
+	var activeShPosition = 0;
+	var maxShPosition = 0;
+	websocket.onopen = function() {
+		statusBar.classList.remove("btn-danger");
+		statusBar.classList.add("btn-success");
+		websocket.send("out gw l");
+		websocket.send("out dg l");
+		websocket.send("out bw l");
+		websocket.send("out pz l");
+		websocket.send("out sh r");
+		statusBar.innerHTML = "Connected"
+	}
+	websocket.onclose = function(){
+		statusBar.classList.remove("btn-success");
+		navBar.classList.remove("bg-secondary");
+		statusBar.classList.add("btn-danger");
+		navBar.classList.add("bg-danger");
+		statusBar.innerHTML = "CONNECTION LOST (6)"
+		var time = 5;
+		setInterval(function() {
+			statusBar.innerHTML = "CONNECTION LOST ("+time+")";
+			time--;
+			if(time < 1) {
+				location.reload();
+			}
+		},1000);
+	}
+	websocket.onmessage = function(ev) {
+		//ev.data
+		if(ev.data.indexOf("d") < 1) {
+			var signal = ev.data.substring(2,4);
+			switch(signal) {
+				case 'gw': //goal wheel
+					var dataD = ev.data.substring(5);
+					if (dataD.indexOf('l') == 0) {
+						var gwArr = dataD.split(" | ");
+						gwArr.splice(0,1);
+						gwArr.forEach(function(element) {
+							var gwOp = document.createElement("option");
+							gwOp.value = gwValue;
+							gwValue++;
+							gwOp.innerHTML = element;
+							document.getElementById("goalWheelSelect").appendChild(gwOp);
+						});
+					} else if(dataD.indexOf('e') == 0) {
+						var selection = dataD.substring(2);
+						document.getElementById("goalWheelSelection").innerHTML = "Selected: "+selection;
+					}
+					break;
+				case 'sh': // game info
+					var dataD = ev.data.substring(5);
+					if (dataD.indexOf('r') == 0) {
+						var shArr = dataD.split(" | ");
+						shArr.splice(0,1);
+						activeShPosition = shArr[0];
+						maxShPosition = parseInt(shArr[1])-1
+					} else if (dataD.indexOf('i') == 0) {
+						var shArr = dataD.split(" | ");
+						shArr.splice(0,1);
+						document.getElementById("gameInfoGame").value = shArr[0];
+						document.getElementById("gameInfoRunner").value = shArr[1];
+					}
+					break;
+				case 'bw': // bid war
+					var dataD = ev.data.substring(5);
+					if (dataD.indexOf('l') == 0) {
+						var dgArr = dataD.split(" || ");
+						dgArr.splice(0,1);
+						dgArr.forEach(function(element) {
+							var dataS = element.split(" | ");
+							var bwOp = document.createElement("option");
+							bwOp.value = bwValue;
+							bwValue++;
+							bwOp.innerHTML = dataS[0] + " ($" + dataS[2] + " " + dataS[1] + " vs. " + dataS[3] + " $" + dataS[4] + ")";
+							document.getElementById("bidWarSelect").appendChild(bwOp);
+						});
+					} else if(dataD.indexOf('g') == 0) {
+						var dgArr = dataD.split(" | ");
+						dgArr.splice(0,1);
+						document.getElementById("bidWarName").value = dgArr[0];
+						document.getElementById("bidWarOption1").value = dgArr[1];
+						document.getElementById("bidWarTotal1").value = dgArr[2];
+						document.getElementById("bidWarOption2").value = dgArr[3];
+						document.getElementById("bidWarTotal2").value = dgArr[4];
+					}
+					break;
+				case 'bc': // broad cast
+					var dataD = ev.data.substring(2);
+					break;
+				case 'dg': // donation goal
+					var dataD = ev.data.substring(5);
+					//var dataArr = dataD.split(" | ");
+					//document.getElementById('goalName').value = dataArr[0];
+					//document.getElementById('goalTotal').value = dataArr[1];
+					if (dataD.indexOf('l') == 0) {
+						var dgArr = dataD.split(" || ");
+						dgArr.splice(0,1);
+						dgArr.forEach(function(element) {
+							var dataS = element.split(" | ");
+							var dgOp = document.createElement("option");
+							dgOp.value = dgValue;
+							dgValue++;
+							dgOp.innerHTML = dataS[0] + " ($" + dataS[1] + ")";
+							document.getElementById("donationGoalSelect").appendChild(dgOp);
+						});
+					}
+					break;
+				case 'pz': // prizes
+					var dataD = ev.data.substring(5);
+					//var dataArr = dataD.split(" | ");
+					//document.getElementById('goalName').value = dataArr[0];
+					//document.getElementById('goalTotal').value = dataArr[1];
+					if (dataD.indexOf('l') == 0) {
+						var dgArr = dataD.split(" || ");
+						dgArr.splice(0,1);
+						dgArr.forEach(function(element) {
+							var dataS = element.split(" | ");
+							var dgOp = document.createElement("option");
+							dgOp.value = dgValue;
+							dgValue++;
+							dgOp.innerHTML = dataS[0] + " ($" + dataS[1] + ")";
+							document.getElementById("prizeSelect").appendChild(dgOp);
+						});
+					}
+					break;
+				case 'mc': // misc
+					var dataD = ev.data.substring(5);
+					//var dataArr = dataD.split(" | ");
+					//document.getElementById('goalName').value = dataArr[0];
+					//document.getElementById('goalTotal').value = dataArr[1];
+					if (dataD.indexOf('l') == 0) {
+						var dgArr = dataD.split(" || ");
+						dgArr.splice(0,1);
+						dgArr.forEach(function(element) {
+							var dgOp = document.createElement("option");
+							dgOp.value = dgValue;
+							dgValue++;
+							dgOp.innerHTML = dgArr[0]
+							document.getElementById("miscSelect").appendChild(dgOp);
+						});
+					}
+					break;
+			}
+		}
+	}
+	// GOAL WHEEL
+	function goalWheelSpin() {
+		websocket.send("out gw s");
+		document.getElementById("goalWheelSpinButton").classList.add("disabled")
+		document.getElementById("broadcastButton").classList.add("disabled")
+		setTimeout(function(){
+			document.getElementById("goalWheelSpinButton").classList.remove("disabled")
+			document.getElementById("broadcastButton").classList.remove("disabled")
+		},25000)
+	}
+	function goalWheelAdd() {
+		if(document.getElementById("goalwheelItem").value.indexOf("|") > -1 || document.getElementById("goalwheelItem").value == "") {
+			document.getElementById("goalWheelAddButton").classList.remove("btn-primary");
+			document.getElementById("goalWheelAddButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("goalWheelAddButton").classList.remove("btn-danger");
+				document.getElementById("goalWheelAddButton").classList.add("btn-primary");
+			},1000);
+		} else {
+			document.getElementById("goalWheelAddButton").classList.remove("btn-primary");
+			document.getElementById("goalWheelAddButton").classList.add("btn-success");
+			websocket.send("out gw a "+document.getElementById("goalwheelItem").value);
+			var gwOp = document.createElement("option");
+			gwOp.value = gwValue;
+			gwValue++;
+			gwOp.innerHTML = document.getElementById("goalwheelItem").value;
+			document.getElementById("goalWheelSelect").appendChild(gwOp);
+			document.getElementById("goalwheelItem").value = "";
+			setTimeout(function() {
+				document.getElementById("goalWheelAddButton").classList.remove("btn-success");
+				document.getElementById("goalWheelAddButton").classList.add("btn-primary");
+			},1000);
+		}
+	}
+	function goalWheelRemove() {
+		if($( "#goalWheelSelect option:selected" ).val() == -1) {
+			document.getElementById("goalWheelRemoveButton").classList.remove("btn-danger");
+			document.getElementById("goalWheelRemoveButton").classList.add("btn-warning");
+			setTimeout(function() {
+				document.getElementById("goalWheelRemoveButton").classList.remove("btn-warning");
+				document.getElementById("goalWheelRemoveButton").classList.add("btn-danger");
+			},1000);
+		} else {
+			document.getElementById("goalWheelRemoveButton").classList.remove("btn-danger");
+			document.getElementById("goalWheelRemoveButton").classList.add("btn-success");
+			var removeValue = $( "#goalWheelSelect option:selected" ).text();
+			$( "#goalWheelSelect option:selected" ).remove();
+			websocket.send("out gw r "+removeValue);
+			setTimeout(function() {
+				document.getElementById("goalWheelRemoveButton").classList.remove("btn-success");
+				document.getElementById("goalWheelRemoveButton").classList.add("btn-danger");
+			},1000);
+		}
+	}
+	function goalWheelClear() {
+		document.getElementById("goalWheelSelection").innerHTML = "";
+	}
+	// DONATION GOALS
+	function donationGoalAdd() {
+		if(document.getElementById("donationGoalName").value.indexOf("|") > -1 || document.getElementById("donationGoalName").value == "" || isNaN(document.getElementById("donationGoalTotal").value) || document.getElementById("donationGoalName").value.indexOf(" ($") > -1 ) {
+			document.getElementById("donationGoalAddButton").classList.remove("btn-primary");
+			document.getElementById("donationGoalAddButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("donationGoalAddButton").classList.remove("btn-danger");
+				document.getElementById("donationGoalAddButton").classList.add("btn-primary");
+			},1000);
+		} else {
+			document.getElementById("donationGoalAddButton").classList.remove("btn-primary");
+			document.getElementById("donationGoalAddButton").classList.add("btn-success");
+			websocket.send("out dg a "+document.getElementById("donationGoalName").value+" | "+document.getElementById("donationGoalTotal").value);
+			$( "#donationGoalSelect > option" ).each(function( index ) {
+			if($( this ).text().indexOf(document.getElementById("donationGoalName").value + " ($") > -1) {
+				$( this ).remove()
+			  }
+			});
+			var dgOp = document.createElement("option");
+			dgOp.value = dgValue;
+			dgValue++;
+			dgOp.innerHTML = document.getElementById("donationGoalName").value + " ($" + document.getElementById("donationGoalTotal").value + ")";
+			document.getElementById("donationGoalSelect").appendChild(dgOp);
+			document.getElementById("donationGoalName").value = "";
+			document.getElementById("donationGoalTotal").value = "";
+			setTimeout(function() {
+				document.getElementById("donationGoalAddButton").classList.remove("btn-success");
+				document.getElementById("donationGoalAddButton").classList.add("btn-primary");
+			},1000);
+		}
+	}
+	function donationGoalModify() {
+		if($( "#donationGoalSelect option:selected" ).val() == -1) {
+			document.getElementById("donationGoalModifyButton").classList.remove("btn-info");
+			document.getElementById("donationGoalModifyButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("donationGoalModifyButton").classList.remove("btn-danger");
+				document.getElementById("donationGoalModifyButton").classList.add("btn-info");
+			},1000);
+		} else {
+			document.getElementById("donationGoalModifyButton").classList.remove("btn-info");
+			document.getElementById("donationGoalModifyButton").classList.add("btn-success");
+			var modifyValue = $( "#donationGoalSelect option:selected" ).text();
+			document.getElementById("donationGoalName").value = modifyValue.substring(-1,modifyValue.indexOf(" ($"));
+			document.getElementById("donationGoalTotal").value = modifyValue.substring(modifyValue.indexOf(" ($")+3,modifyValue.length-1);
+			setTimeout(function() {
+				document.getElementById("donationGoalModifyButton").classList.remove("btn-success");
+				document.getElementById("donationGoalModifyButton").classList.add("btn-info");
+			},1000);
+		}
+	}
+	function donationGoalRemove() {
+		if($( "#donationGoalSelect option:selected" ).val() == -1) {
+			document.getElementById("donationGoalRemoveButton").classList.remove("btn-danger");
+			document.getElementById("donationGoalRemoveButton").classList.add("btn-warning");
+			setTimeout(function() {
+				document.getElementById("donationGoalRemoveButton").classList.remove("btn-warning");
+				document.getElementById("donationGoalRemoveButton").classList.add("btn-danger");
+			},1000);
+		} else {
+			document.getElementById("donationGoalRemoveButton").classList.remove("btn-danger");
+			document.getElementById("donationGoalRemoveButton").classList.add("btn-success");
+			var removeValue = $( "#donationGoalSelect option:selected" ).text();
+			$( "#donationGoalSelect option:selected" ).remove();
+			websocket.send("out dg r "+removeValue.substring(-1,removeValue.indexOf(" ($")));
+			setTimeout(function() {
+				document.getElementById("donationGoalRemoveButton").classList.remove("btn-success");
+				document.getElementById("donationGoalRemoveButton").classList.add("btn-danger");
+			},1000);
+		}
+	}
+	// BID WARS
+	function bidWarAdd() {
+		if(document.getElementById("bidWarName").value.indexOf("|") > -1 || document.getElementById("bidWarName").value == "" || document.getElementById("bidWarOption1").value.indexOf("|") > -1 || document.getElementById("bidWarOption1").value == "" || document.getElementById("bidWarOption2").value.indexOf("|") > -1 || document.getElementById("bidWarOption2").value == "" || isNaN(document.getElementById("bidWarTotal1").value) ||  isNaN(document.getElementById("bidWarTotal2").value) || document.getElementById("bidWarName").value.indexOf(" ($") > -1) {
+			document.getElementById("bidWarAddButton").classList.remove("btn-primary");
+			document.getElementById("bidWarAddButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("bidWarAddButton").classList.remove("btn-danger");
+				document.getElementById("bidWarAddButton").classList.add("btn-primary");
+			},1000);
+		} else {
+			document.getElementById("bidWarAddButton").classList.remove("btn-primary");
+			document.getElementById("bidWarAddButton").classList.add("btn-success");
+			websocket.send("out bw a "+document.getElementById("bidWarName").value+" | "+document.getElementById("bidWarOption1").value+" | "+document.getElementById("bidWarTotal1").value+" | "+document.getElementById("bidWarOption2").value+" | "+document.getElementById("bidWarTotal2").value);
+			$( "#bidWarSelect > option" ).each(function( index ) {
+			if($( this ).text().indexOf(document.getElementById("bidWarName").value + " ($") > -1) {
+				$( this ).remove()
+			  }
+			});
+			var bwOp = document.createElement("option");
+			bwOp.value = bwValue;
+			bwValue++;
+			bwOp.innerHTML = document.getElementById("bidWarName").value+" ($"+document.getElementById("bidWarTotal1").value+" "+document.getElementById("bidWarOption1").value+" vs. "+document.getElementById("bidWarOption2").value+" $"+document.getElementById("bidWarTotal2").value+")";
+			document.getElementById("bidWarSelect").appendChild(bwOp);
+			document.getElementById("bidWarName").value = "";
+			document.getElementById("bidWarOption1").value = "";
+			document.getElementById("bidWarTotal1").value = "";
+			document.getElementById("bidWarOption2").value = "";
+			document.getElementById("bidWarTotal2").value = "";
+			setTimeout(function() {
+				document.getElementById("bidWarAddButton").classList.remove("btn-success");
+				document.getElementById("bidWarAddButton").classList.add("btn-primary");
+			},1000);
+		}
+	}
+	function bidWarModify() {
+		if($( "#bidWarSelect option:selected" ).val() == -1) {
+			document.getElementById("bidWarModifyButton").classList.remove("btn-info");
+			document.getElementById("bidWarModifyButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("bidWarModifyButton").classList.remove("btn-danger");
+				document.getElementById("bidWarModifyButton").classList.add("btn-info");
+			},1000);
+		} else {
+			document.getElementById("bidWarModifyButton").classList.remove("btn-info");
+			document.getElementById("bidWarModifyButton").classList.add("btn-success");
+			var modifyValue = $( "#bidWarSelect option:selected" ).text();
+			websocket.send("out bw g "+modifyValue.substring(-1,modifyValue.indexOf(" ($")));
+			setTimeout(function() {
+				document.getElementById("bidWarModifyButton").classList.remove("btn-success");
+				document.getElementById("bidWarModifyButton").classList.add("btn-info");
+			},1000);
+		}
+	}
+	function bidWarRemove() {
+		if($( "#bidWarSelect option:selected" ).val() == -1) {
+			document.getElementById("bidWarRemoveButton").classList.remove("btn-danger");
+			document.getElementById("bidWarRemoveButton").classList.add("btn-warning");
+			setTimeout(function() {
+				document.getElementById("bidWarRemoveButton").classList.remove("btn-warning");
+				document.getElementById("bidWarRemoveButton").classList.add("btn-danger");
+			},1000);
+		} else {
+			document.getElementById("bidWarRemoveButton").classList.remove("btn-danger");
+			document.getElementById("bidWarRemoveButton").classList.add("btn-success");
+			var removeValue = $( "#bidWarSelect option:selected" ).text();
+			$( "#bidWarSelect option:selected" ).remove();
+			websocket.send("out bw r "+removeValue.substring(-1,removeValue.indexOf(" ($")));
+			setTimeout(function() {
+				document.getElementById("bidWarRemoveButton").classList.remove("btn-success");
+				document.getElementById("bidWarRemoveButton").classList.add("btn-danger");
+			},1000);
+		}
+	}
+	// BROAD CAST
+	function broadcastSend() {
+		if(document.getElementById("broadcastText").value.indexOf("|") > -1 || document.getElementById("broadcastText").value == "") {
+			document.getElementById("broadcastButton").classList.remove("btn-primary");
+			document.getElementById("broadcastButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("broadcastButton").classList.remove("btn-danger");
+				document.getElementById("broadcastButton").classList.add("btn-primary");
+			},1000);
+		} else {
+			document.getElementById("goalWheelSpinButton").classList.add("disabled")
+			document.getElementById("broadcastButton").classList.add("disabled")
+			setTimeout(function(){
+				document.getElementById("goalWheelSpinButton").classList.remove("disabled")
+				document.getElementById("broadcastButton").classList.remove("disabled")
+			},25000)
+			document.getElementById("broadcastButton").classList.remove("btn-primary");
+			document.getElementById("broadcastButton").classList.add("btn-success");
+			websocket.send("out bc "+document.getElementById("broadcastText").value);
+			document.getElementById("broadcastText").value = "";
+			setTimeout(function() {
+				document.getElementById("broadcastButton").classList.remove("btn-success");
+				document.getElementById("broadcastButton").classList.add("btn-primary");
+			},1000);
+		}
+	}
+	// GAME INFO
+	function gameInfoNext() {
+		if(activeShPosition+1 > maxShPosition) {
+			document.getElementById("gameInfoNextButton").classList.remove("btn-primary");
+			document.getElementById("gameInfoNextButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("gameInfoNextButton").classList.remove("btn-danger");
+				document.getElementById("gameInfoNextButton").classList.add("btn-primary");
+			},1000);
+		} else {
+			document.getElementById("gameInfoNextButton").classList.add("btn-success");
+			document.getElementById("gameInfoNextButton").classList.remove("btn-primary");
+			activeShPosition = parseInt(activeShPosition)+1;
+			websocket.send("out sh p "+activeShPosition)
+			setTimeout(function() {
+				document.getElementById("gameInfoNextButton").classList.remove("btn-success");
+				document.getElementById("gameInfoNextButton").classList.add("btn-primary");
+			},1000);
+		}
+	}
+	function gameInfoPrev() {
+		if(activeShPosition-1 < 0) {
+			document.getElementById("gameInfoPrevButton").classList.remove("btn-danger");
+			document.getElementById("gameInfoPrevButton").classList.add("btn-warning");
+			setTimeout(function() {
+				document.getElementById("gameInfoPrevButton").classList.remove("btn-warning");
+				document.getElementById("gameInfoPrevButton").classList.add("btn-danger");
+			},1000);
+		} else {
+			document.getElementById("gameInfoPrevButton").classList.remove("btn-danger");
+			document.getElementById("gameInfoPrevButton").classList.add("btn-success");
+			activeShPosition = parseInt(activeShPosition)-1;
+			websocket.send("out sh p "+activeShPosition)
+			setTimeout(function() {
+				document.getElementById("gameInfoPrevButton").classList.remove("btn-success");
+				document.getElementById("gameInfoPrevButton").classList.add("btn-danger");
+			},1000);
+		}
+	}
+	function gameInfoForce() {
+		if(document.getElementById("gameInfoGame").value.indexOf("|") > -1 || document.getElementById("gameInfoGame").value == "") {
+			document.getElementById("gameInfoForceButton").classList.remove("btn-warning");
+			document.getElementById("gameInfoForceButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("gameInfoForceButton").classList.remove("btn-danger");
+				document.getElementById("gameInfoForceButton").classList.add("btn-warning");
+			},1000);
+		} else {
+			document.getElementById("gameInfoForceButton").classList.remove("btn-warning");
+			document.getElementById("gameInfoForceButton").classList.add("btn-success");
+			websocket.send("out gi s "+document.getElementById("gameInfoGame") + " | " + document.getElementById("gameInfoRunner"));
+			setTimeout(function() {
+				document.getElementById("gameInfoForceButton").classList.remove("btn-success");
+				document.getElementById("gameInfoForceButton").classList.add("btn-warning");
+			},1000);
+		}
+	}
+	//PRIZES
+	function prizeAdd() {
+		if(document.getElementById("prizeName").value.indexOf("|") > -1 || document.getElementById("prizeName").value == "" || isNaN(document.getElementById("prizeMinimum").value) || document.getElementById("prizeMinimum").value.indexOf(" ($") > -1 ) {
+			document.getElementById("prizeAddButton").classList.remove("btn-primary");
+			document.getElementById("prizeAddButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("prizeAddButton").classList.remove("btn-danger");
+				document.getElementById("prizeAddButton").classList.add("btn-primary");
+			},1000);
+		} else {
+			document.getElementById("prizeAddButton").classList.remove("btn-primary");
+			document.getElementById("prizeAddButton").classList.add("btn-success");
+			websocket.send("out pz a "+document.getElementById("prizeName").value+" | "+document.getElementById("prizeMinimum").value);
+			$( "#prizeSelect > option" ).each(function( index ) {
+			if($( this ).text().indexOf(document.getElementById("prizeName").value + " ($") > -1) {
+				$( this ).remove()
+			  }
+			});
+			var dgOp = document.createElement("option");
+			dgOp.value = dgValue;
+			dgValue++;
+			dgOp.innerHTML = document.getElementById("prizeName").value + " ($" + document.getElementById("prizeMinimum").value + ")";
+			document.getElementById("prizeSelect").appendChild(dgOp);
+			document.getElementById("prizeName").value = "";
+			document.getElementById("prizeMinimum").value = "";
+			setTimeout(function() {
+				document.getElementById("prizeAddButton").classList.remove("btn-success");
+				document.getElementById("prizeAddButton").classList.add("btn-primary");
+			},1000);
+		}
+	}
+	function prizeModify() {
+		if($( "#prizeSelect option:selected" ).val() == -1) {
+			document.getElementById("prizeModifyButton").classList.remove("btn-info");
+			document.getElementById("prizeModifyButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("prizeModifyButton").classList.remove("btn-danger");
+				document.getElementById("prizeModifyButton").classList.add("btn-info");
+			},1000);
+		} else {
+			document.getElementById("prizeModifyButton").classList.remove("btn-info");
+			document.getElementById("prizeModifyButton").classList.add("btn-success");
+			var modifyValue = $( "#prizeSelect option:selected" ).text();
+			document.getElementById("prizeName").value = modifyValue.substring(-1,modifyValue.indexOf(" ($"));
+			document.getElementById("prizeMinimum").value = modifyValue.substring(modifyValue.indexOf(" ($")+3,modifyValue.length-1);
+			setTimeout(function() {
+				document.getElementById("prizeModifyButton").classList.remove("btn-success");
+				document.getElementById("prizeModifyButton").classList.add("btn-info");
+			},1000);
+		}
+	}
+	function prizeRemove() {
+		if($( "#prizeSelect option:selected" ).val() == -1) {
+			document.getElementById("prizeRemoveButton").classList.remove("btn-danger");
+			document.getElementById("prizeRemoveButton").classList.add("btn-warning");
+			setTimeout(function() {
+				document.getElementById("prizeRemoveButton").classList.remove("btn-warning");
+				document.getElementById("prizeRemoveButton").classList.add("btn-danger");
+			},1000);
+		} else {
+			document.getElementById("prizeRemoveButton").classList.remove("btn-danger");
+			document.getElementById("prizeRemoveButton").classList.add("btn-success");
+			var removeValue = $( "#prizeSelect option:selected" ).text();
+			$( "#prizeSelect option:selected" ).remove();
+			websocket.send("out pz r "+removeValue.substring(-1,removeValue.indexOf(" ($")));
+			setTimeout(function() {
+				document.getElementById("prizeRemoveButton").classList.remove("btn-success");
+				document.getElementById("prizeRemoveButton").classList.add("btn-danger");
+			},1000);
+		}
+	}
+		//MISC
+		function miscAdd() {
+		if(document.getElementById("miscText").value.indexOf("|") > -1 || document.getElementById("miscText").value == "") {
+			document.getElementById("miscAddButton").classList.remove("btn-primary");
+			document.getElementById("miscAddButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("miscAddButton").classList.remove("btn-danger");
+				document.getElementById("miscAddButton").classList.add("btn-primary");
+			},1000);
+		} else {
+			document.getElementById("miscAddButton").classList.remove("btn-primary");
+			document.getElementById("miscAddButton").classList.add("btn-success");
+			websocket.send("out mc a "+document.getElementById("miscText").value);
+			$( "#miscSelect > option" ).each(function( index ) {
+			if($( this ).text().indexOf(document.getElementById("miscText").value) > -1) {
+				$( this ).remove()
+			  }
+			});
+			var dgOp = document.createElement("option");
+			dgOp.value = mcValue;
+			mcValue++;
+			dgOp.innerHTML = document.getElementById("miscText").value
+			document.getElementById("miscSelect").appendChild(dgOp);
+			document.getElementById("miscText").value = "";
+			setTimeout(function() {
+				document.getElementById("miscAddButton").classList.remove("btn-success");
+				document.getElementById("miscAddButton").classList.add("btn-primary");
+			},1000);
+		}
+	}
+	function miscRemove() {
+		if($( "#miscSelect option:selected" ).val() == -1) {
+			document.getElementById("miscRemoveButton").classList.remove("btn-danger");
+			document.getElementById("miscRemoveButton").classList.add("btn-warning");
+			setTimeout(function() {
+				document.getElementById("miscRemoveButton").classList.remove("btn-warning");
+				document.getElementById("miscRemoveButton").classList.add("btn-danger");
+			},1000);
+		} else {
+			document.getElementById("miscRemoveButton").classList.remove("btn-danger");
+			document.getElementById("miscRemoveButton").classList.add("btn-success");
+			var removeValue = $( "#miscSelect option:selected" ).text();
+			$( "#miscSelect option:selected" ).remove();
+			websocket.send("out mc r "+removeValue);
+			setTimeout(function() {
+				document.getElementById("miscRemoveButton").classList.remove("btn-success");
+				document.getElementById("miscRemoveButton").classList.add("btn-danger");
+			},1000);
+		}
+	}
+</script>
+</body>
+</html>

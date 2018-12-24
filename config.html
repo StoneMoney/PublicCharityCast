@@ -1,0 +1,642 @@
+<html>
+<head>
+<title>CC Config</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
+</head>
+<body class="bg-light">
+<div class="container-fluid">
+	<nav id="navbar" class="navbar sticky-top navbar-expand-lg navbar-light bg-info mb-3" style="border-radius: 0px 0px 5px 5px;">
+	  <a class="navbar-brand text-white" href="#">Charitycast Config</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<div class="row container-fluid">
+			<a href="http://localhost:8000" class="btn btn-secondary">Dashboard</a>&nbsp;
+			<a href="#" class="btn btn-danger" id="status">Not Connected</a>&nbsp;
+			<a href="#" class="btn btn-primary">Wiki</a>&nbsp;
+		</div>
+	  </div>
+	</nav>
+  <div class="row">
+    <div class="col-sm-12 col-lg-4 mb-3" hidden>
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Modules</h5>
+				<p class="card-text">
+					Enable modules to be used on omnibar and dashboard.
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="dt" class="custom-control-input" id="totalToggle">
+						  <label class="custom-control-label" for="totalToggle">Donation Total</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="mt" class="custom-control-input" id="timeToggle">
+						  <label class="custom-control-label" for="timeToggle">Marathon Time</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="tt" class="custom-control-input" id="titleToggle">
+						  <label class="custom-control-label" for="titleToggle">Title</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="st" class="custom-control-input" id="subtitleToggle">
+						  <label class="custom-control-label" for="subtitleToggle">Subtitle</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="bc" class="custom-control-input" id="broadcastToggle">
+						  <label class="custom-control-label" for="broadcastToggle">Broadcast</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="dg" class="custom-control-input" id="donationgoalToggle">
+						  <label class="custom-control-label" for="donationgoalToggle">Donation Goals</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="gw" class="custom-control-input" id="wheelToggle">
+						  <label class="custom-control-label" for="wheelToggle">Goal Wheel</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="bw" class="custom-control-input" id="bidwarToggle">
+						  <label class="custom-control-label" for="bidwarToggle">Bid Wars</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="ri" class="custom-control-input" id="runinfoToggle">
+						  <label class="custom-control-label" for="runinfoToggle">Run Info</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="un" class="custom-control-input" id="upnextToggle">
+						  <label class="custom-control-label" for="upnextToggle">Up Next</label>
+						</div>
+					</div>
+					<div class="row ml-2">
+						<div class="custom-control custom-checkbox">
+						  <input type="checkbox" value="pz" class="custom-control-input" id="prizesToggle">
+						  <label class="custom-control-label" for="prizesToggle">Prizes</label>
+						</div>
+					</div>
+				</p>
+				<a href="javascript:void(0)" id="moduleUpdateButton" class="btn btn-primary" onclick="">Update</a>
+			</div>
+		</div>
+    </div>
+	<div class="col-sm-12 col-lg-4 mb-3">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">API</h5>
+				<p class="card-text">
+
+					<div id="apiSelectProvider">API Service
+							<!-- <select class="custom-select mb-1" id="apiBranches">
+								<option vlaue="-1" selected>Open this select menu</option>
+								<option value="0">ExtraLife</option>
+								<option value="2">Tiltify</option>
+							</select>
+							<a href="javascript:void(0)" id="nextApiBranchButton" class="btn btn-primary" onclick="apiSetProvider()">Next</a>
+					</div>
+
+					<div id="apiSelectTiltifyAccountType" hidden>Tiltify Account Name
+						<select class="custom-select mb-1" id="apiTiltifyAccountType">
+							<option vlaue="-1" selected>Open this select menu</option>
+							<option value="1">User</option>
+							<option value="2">Team</option>
+						</select>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" id="scheduleRunner" placeholder="Name">
+						</div>
+						<a href="javascript:void(0)" id="backApiSetNameButton" class="btn btn-danger" onclick="apiSetNameBack()">Back</a> <a href="javascript:void(0)" id="nextApiSetNameButton" class="btn btn-primary" onclick="apiSetName()">Next</a>
+					</div>
+
+					<div id="apiConfirmTiltifyAccount" hidden>Tiltify Account Confirmation
+						<div class="row">
+							<h4 class="col">Username</h4>
+							<p class="col-sm-12">Is this correct?</p>
+						</div>
+						<a href="javascript:void(0)" id="backTiltifyConfirmButton" class="btn btn-danger" onclick="apiConfirmAccountBack()">Retry</a> <a href="javascript:void(0)" id="nextTiltifyConfirmButton" class="btn btn-primary" onclick="apiConfirmAccount()">Yes</a>
+					</div>
+
+					<div id="apiSelectTiltifyCampaign" hidden>Tiltify Campaign Selector
+						<select class="custom-select mb-1" id="apiTiltifyCampaign">
+							<option vlaue="-1" selected>Open this select menu</option>
+						</select>
+						<a href="javascript:void(0)" id="backTiltifyCampaignButton" class="btn btn-danger" onclick="apiCampaignSelectBack()">Back</a> <a href="javascript:void(0)" id="nextTiltifyCampaignButton" class="btn btn-primary" onclick="apiCampaignSelect()">Next</a>
+					</div>
+
+					<div id="apiTiltify" hidden>ExtraLife Campaign
+							<div class="row">
+									<p class="col-sm-12">Campaign ID</p>
+								</div>
+							<a href="javascript:void(0)" id="resetAPIButton" class="btn btn-danger" onclick="apiReset()">Reset</a>
+					</div>
+
+					<div id="apiTiltify" hidden>Tiltify Campaign
+							<div class="row">
+									<h4 class="col">Username</h4>
+									<p class="col-sm-12">Campaign Name</p>
+								</div>
+							<a href="javascript:void(0)" id="resetAPIButton" class="btn btn-danger" onclick="apiReset()">Reset</a> -->
+					</div>
+					API IS HARDCODED TO ZELDATHON
+					
+					OMNIBAR FILES & LOCATION (Click to copy)
+					<input type="text" class="form-control sm-4 mb-3 mt-3" id="omnibarLocation" onclick="copyAddr()" placeholder="Omnibar Location">
+				</p>
+				<a href="javascript:void(0)" id="apiOpenButton" class="btn btn-info" onclick="apiOpen()">Open</a>
+			</div>
+		</div>
+    </div>
+	<div class="col-sm-12 col-lg-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Marathon Timer</h5>
+					Enter date and time of marathon's start<br> <a href="http://www.timestampgenerator.com/" target="_blank">Use this tool to make a timestamp, timezone sensitive!</a>
+				<p class="card-text">
+					<div class="row">
+						<div class="input-group mb-1 col-sm-12">
+						  <div class="input-group-prepend">
+							<span class="input-group-text" id="basic-addon1">TIMESTAMP</span>
+						  </div>
+						  <input type="number" class="form-control" placeholder="Unix Timestamp" id="marathonTimestamp">
+						</div>
+					</div>
+				</p>
+				<a href="javascript:void(0)" class="btn btn-primary" onclick="marathonTimeSet()" id="marathonTimeSetButton">Apply</a>
+				<a href="javascript:void(0)" class="btn btn-danger" onclick="marathonTimeClear()" id="marathonTimeClearButton">Clear</a>
+			</div>			
+		</div>
+    </div>
+	<div class="col-sm-12 col-lg-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Title/Subtitle</h5>
+					To be displayed on omnibar<br>
+				<p class="card-text">
+					<div class="row">
+						<div class="input-group mb-3 col-sm-12">
+						  <div class="input-group-prepend">
+							<span class="input-group-text" id="basic-addon1">Title</span>
+						  </div>
+						  <input type="text" class="form-control" placeholder="You're watching X" id="title">
+						</div>
+						<div class="input-group mb-3 col-sm-12 ">
+						  <div class="input-group-prepend ">
+							<span class="input-group-text" id="basic-addon1">Subtitle</span>
+						  </div>
+						  <input type="text" class="form-control" placeholder="Donate at Y" id="subtitle">
+						</div>
+					</div>
+				</p>
+				<a href="javascript:void(0)" class="btn btn-primary" id="titleSetButton" onclick="setTitles()">Apply</a>
+			</div>
+		</div>
+    </div>
+	<div class="col-sm-12 col-lg-4 mb-3">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Schedule</h5>
+				<p class="card-text">
+					For run info and up next modules
+					<div class="input-group mb-3">
+					  <input type="text" class="form-control" placeholder="Game" id="scheduleGame">
+					</div>
+					<div class="input-group mb-3">
+					  <input type="text" class="form-control" id="scheduleRunner" placeholder="Runner">
+					</div>
+				</p>
+				<a href="javascript:void(0)" class="btn btn-primary mb-3" id="scheduleAddButton" onclick="scheduleAdd()">Create/Update</a>
+				<h5 class="card-title">Modify Schedule</h5>
+				<p class="card-text">
+					Click and drag to move items
+					<div style="overflow:auto;height:20vh;" class="col-sm-12 card">
+						<ul class="sortable" id="scheduleList">
+						</ul>
+					</div>
+				</p>
+				<a href="javascript:void(0)" id="scheduleApplyButton" class="btn btn-info" onclick="scheduleApply()">Save Order</a>
+				<div class="mb-3 mt-3">
+					<select class="custom-select" id="scheduleModList">
+					  <option value="-1">Open this select menu</option>
+					</select>
+				</div>
+				<!-- <a href="javascript:void(0)" id="scheduleModifyButton" class="btn btn-info" onclick="scheduleModify()">Modify</a> -->
+				<a href="javascript:void(0)" id="scheduleRemoveButton" class="btn btn-danger" onclick="scheduleRemove()">Remove</a>
+			</div>
+		</div>
+    </div>
+	<div class="col-sm-12 col-lg-4 mb-3" hidden>
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Branding</h5>
+				<p class="card-text">
+					Omnibar layout
+					<div class="row mb-3">
+						<div class="col-sm-10">
+							<select class="custom-select" id="">
+							  <option value="0">Longbar</option>
+							  <option value="1" disabled>Box (COMING SOON)</option>
+							  <option value="2" disabled>Minimalist (COMING SOON)</option>
+							</select>
+						</div>
+						<div class="col-sm-2">
+							<a href="javascript:void(0)" id="donationGoalRemoveButton" class="btn btn-primary" onclick="">Apply</a>
+						</div>
+					</div>
+					Logo, Charity Logo
+				</p>
+				<a href="javascript:void(0)" id="donationGoalRemoveButton" class="btn btn-info" onclick="donationGoalRemove()">Open</a>
+			</div>
+		</div>
+    </div>
+  </div>
+  Created by @stonemoney [ngiano] (1-8-18 | b1.0)
+</div>
+<script>
+	var el = document.getElementById('scheduleList');
+	var sortable = Sortable.create(el);
+</script>
+<script>
+	websocket = new WebSocket("ws://localhost:9020/");
+	var statusBar = document.getElementById("status");
+	var navBar = document.getElementById("navbar");
+	var shValue = 0;
+	var modValue = -10;
+	websocket.onopen = function() {
+		statusBar.classList.remove("btn-danger");
+		statusBar.classList.add("btn-success");
+		websocket.send("out sh l");
+		websocket.send("out ap r");
+		websocket.send("out mt r");
+		websocket.send("out st r");
+		websocket.send("out tt r");
+		websocket.send("out op o");
+		//websocket.send("out dg l");
+		//websocket.send("out bw l");
+		statusBar.innerHTML = "Connected"
+	}
+	websocket.onclose = function(){
+		statusBar.classList.remove("btn-success");
+		navBar.classList.remove("bg-secondary");
+		statusBar.classList.add("btn-danger");
+		navBar.classList.add("bg-danger");
+		statusBar.innerHTML = "CONNECTION LOST (6)"
+		var time = 5;
+		setInterval(function() {
+			statusBar.innerHTML = "CONNECTION LOST ("+time+")";
+			time--;
+			if(time < 1) {
+				location.reload();
+			}
+		},1000);
+	}
+	websocket.onmessage = function(ev) {
+		//ev.data
+		if(ev.data.indexOf("d") < 1) {
+			var signal = ev.data.substring(2,4);
+			switch(signal) {
+				case 'op':
+					var dataD = ev.data.substring(5);
+					if (dataD.indexOf('o') == 0) {
+						var gwArr = dataD.split(" | ");
+						gwArr.splice(0,1);
+						document.getElementById("omnibarLocation").value = gwArr[0]
+					}
+					break;
+				case 'sh': //schedule
+					var dataD = ev.data.substring(5);
+					if (dataD.indexOf('l') == 0) {
+						var gwArr = dataD.split(" || ");
+						gwArr.splice(0,1);
+						gwArr.forEach(function(element) {
+							var dataE = element.split(" | ");
+							var shOp = document.createElement("option");
+							var shLi = document.createElement("li");
+							shOp.value = shValue;
+							shLi.value = shValue;
+							shValue++;
+							shOp.innerHTML = dataE[0] + " | " + dataE[1];
+							shLi.innerHTML = dataE[0] + " | " + dataE[1];
+							document.getElementById("scheduleModList").appendChild(shOp);
+							document.getElementById("scheduleList").appendChild(shLi);
+						});
+					}
+					break;
+				case 'gi': // game info
+					var dataD = ev.data.substring(2);
+					break;
+				case 'bw': // bid war
+					var dataD = ev.data.substring(5);
+					if (dataD.indexOf('l') == 0) {
+						var dgArr = dataD.split(" || ");
+						dgArr.splice(0,1);
+						dgArr.forEach(function(element) {
+							var dataS = element.split(" | ");
+							var bwOp = document.createElement("option");
+							bwOp.value = bwValue;
+							bwValue++;
+							bwOp.innerHTML = dataS[0] + " ($" + dataS[2] + " " + dataS[1] + " vs. " + dataS[3] + " $" + dataS[4] + ")";
+							document.getElementById("bidWarSelect").appendChild(bwOp);
+						});
+					} if(dataD.indexOf('g') == 0) {
+						var dgArr = dataD.split(" | ");
+						dgArr.splice(0,1);
+						document.getElementById("bidWarName").value = dgArr[0];
+						document.getElementById("bidWarOption1").value = dgArr[1];
+						document.getElementById("bidWarTotal1").value = dgArr[2];
+						document.getElementById("bidWarOption1").value = dgArr[3];
+						document.getElementById("bidWarTotal1").value = dgArr[4];
+					}
+					break;
+				case 'bc': // broad cast
+					var dataD = ev.data.substring(2);
+					break;
+				case 'dg': // donation goal
+					var dataD = ev.data.substring(5);
+					//var dataArr = dataD.split(" | ");
+					//document.getElementById('goalName').value = dataArr[0];
+					//document.getElementById('goalTotal').value = dataArr[1];
+					if (dataD.indexOf('l') == 0) {
+						var dgArr = dataD.split(" || ");
+						dgArr.splice(0,1);
+						dgArr.forEach(function(element) {
+							var dataS = element.split(" | ");
+							var dgOp = document.createElement("option");
+							dgOp.value = dgValue;
+							dgValue++;
+							dgOp.innerHTML = dataS[0] + " ($" + dataS[1] + ")";
+							document.getElementById("donationGoalSelect").appendChild(dgOp);
+						});
+					}
+					break;
+				case 'ap':
+					var dataD = ev.data.substring(7);
+					var dgArr = dataD.split(" | ");
+					var data = JSON.parse(dgArr[1]);
+					if(dgArr[0] == "ExtraLife") {
+						document.getElementById("apiCampaignId").value = data.participantID;
+					}
+					break;
+				case 'mt':
+					var dataD = ev.data.substring(7);
+					var date2 = new Date(dataD);
+					document.getElementById("marathonTimestamp").value = (date2.getTime() / 1000);
+					break;
+				case 'tt':
+					var dataD = ev.data.substring(7);
+					document.getElementById("title").value = dataD;
+					break;
+				case 'st':
+					var dataD = ev.data.substring(7);
+					document.getElementById("subtitle").value = dataD;
+					break;
+			}
+		}
+	}
+	
+	function marathonTimeSet() {
+		var date1 = new Date(document.getElementById("marathonTimestamp").value * 1000);
+		if(date1 == "Invalid Date" || date1.getFullYear() <= 1970 || date1.getFullYear() >= 2100) { //hello time travellers
+			document.getElementById("marathonTimeSetButton").classList.remove("btn-info");
+			document.getElementById("marathonTimeSetButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("marathonTimeSetButton").classList.remove("btn-danger");
+				document.getElementById("marathonTimeSetButton").classList.add("btn-info");
+			},1000);
+		} else {
+			websocket.send("out mt s "+date1)
+		}
+	}
+	
+	function marathonTimeClear() {
+		document.getElementById("marathonTimeClearButton").classList.remove("btn-danger");
+		document.getElementById("marathonTimeClearButton").classList.add("btn-success");
+		websocket.send("out mt c")
+		setTimeout(function() {
+			document.getElementById("marathonTimeClearButton").classList.remove("btn-success");
+			document.getElementById("marathonTimeClearButton").classList.add("btn-danger");
+		},1000);
+	}
+	
+	function scheduleAdd() {
+		if(document.getElementById("scheduleGame").value.indexOf("|") > -1 || document.getElementById("scheduleGame").value == "" ) {
+			document.getElementById("scheduleAddButton").classList.remove("btn-primary");
+			document.getElementById("scheduleAddButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("scheduleAddButton").classList.remove("btn-danger");
+				document.getElementById("scheduleAddButton").classList.add("btn-primary");
+			},1000);
+		} else {
+			document.getElementById("scheduleAddButton").classList.remove("btn-primary");
+			document.getElementById("scheduleAddButton").classList.add("btn-success");
+			$( "#scheduleList > li" ).each(function( index ) {
+			if($( this ).text().indexOf(document.getElementById("scheduleGame").value + " | ") > -1) {
+				$( this ).remove()
+			  }
+			});
+			var dgLi = document.createElement("li");
+			var dgOp = document.createElement("option");
+			dgOp.innerHTML = document.getElementById("scheduleGame").value + " | " + document.getElementById("scheduleRunner").value;
+			dgLi.innerHTML = document.getElementById("scheduleGame").value + " | " + document.getElementById("scheduleRunner").value;
+			document.getElementById("scheduleList").appendChild(dgLi);
+			dgOp.value = shValue;
+			dgLi.value = shValue;
+			shValue++;
+			document.getElementById("scheduleModList").appendChild(dgOp);
+			document.getElementById("scheduleGame").value = "";
+			document.getElementById("scheduleRunner").value = "";
+			setTimeout(function() {
+				scheduleApply()
+				document.getElementById("scheduleAddButton").classList.remove("btn-success");
+				document.getElementById("scheduleAddButton").classList.add("btn-primary");
+			},1000);
+		}
+	}
+	function scheduleRemove() {
+		if($( "#scheduleModList option:selected" ).val() == -1) {
+			document.getElementById("scheduleRemoveButton").classList.remove("btn-danger");
+			document.getElementById("scheduleRemoveButton").classList.add("btn-warning");
+			setTimeout(function() {
+				document.getElementById("scheduleRemoveButton").classList.remove("btn-warning");
+				document.getElementById("scheduleRemoveButton").classList.add("btn-danger");
+			},1000);
+		} else {
+			document.getElementById("scheduleRemoveButton").classList.remove("btn-danger");
+			document.getElementById("scheduleRemoveButton").classList.add("btn-success");
+			var removeValue = $( "#scheduleModList option:selected" ).text();
+			$( "#scheduleModList option:selected" ).remove();
+			$( "#scheduleList > li" ).each(function( index ) {
+			  if($( this ).text().indexOf(removeValue) > -1) {
+				$( this ).remove()
+			  }
+			});
+			//websocket.send("out dg r "+removeValue.substring(-1,removeValue.indexOf(" | ")));
+			setTimeout(function() {
+				scheduleApply()
+				document.getElementById("scheduleRemoveButton").classList.remove("btn-success");
+				document.getElementById("scheduleRemoveButton").classList.add("btn-danger");
+			},1000);
+		}
+	}
+	//function scheduleModify() {
+	//	if($( "#scheduleModList option:selected" ).val() == -1) {
+	//		document.getElementById("scheduleModifyButton").classList.remove("btn-info");
+	//		document.getElementById("scheduleModifyButton").classList.add("btn-danger");
+	//		setTimeout(function() {
+	//			document.getElementById("scheduleModifyButton").classList.remove("btn-danger");
+	//			document.getElementById("scheduleModifyButton").classList.add("btn-info");
+	//		},1000);
+	//	} else {
+	//		document.getElementById("scheduleModifyButton").classList.remove("btn-info");
+	//		document.getElementById("scheduleModifyButton").classList.add("btn-success");
+	//		modValue = $( "#scheduleModList option:selected" ).value();
+	//		$( "#scheduleModList option:selected" ).remove();
+	//		$( "#scheduleList > li" ).each(function( index ) {
+	//		  if($( this ).text().indexOf(removeValue) > -1) {
+	//			$( this ).remove()
+	//		  }
+	//		});
+	//		//websocket.send("out dg r "+removeValue.substring(-1,removeValue.indexOf(" | ")));
+	//		setTimeout(function() {
+	//			document.getElementById("scheduleModifyButton").classList.remove("btn-success");
+	//			document.getElementById("scheduleModifyButton").classList.add("btn-info");
+	//		},1000);
+	//	}
+	//}
+	function scheduleApply() {
+		document.getElementById("scheduleApplyButton").classList.remove("btn-info");
+		document.getElementById("scheduleApplyButton").classList.add("btn-success");
+		dataStr = "";
+		$( "#scheduleList > li" ).each(function( index ) {
+			  var data = $( this ).text();
+			  dataStr += " || " + data;
+		});
+		websocket.send("out sh u "+dataStr);
+		setTimeout(function() {
+			document.getElementById("scheduleApplyButton").classList.remove("btn-success");
+			document.getElementById("scheduleApplyButton").classList.add("btn-info");
+		},1000);
+	}
+	//API
+	function apiSetTarget() {
+		var apiCampaignId = document.getElementById("apiCampaignId").value
+		var apiBranch = $( "#apiBranches option:selected" ).text();
+		//if(apiCampaignId > 0) {
+			document.getElementById("apiUpdateButton").classList.remove("btn-primary");
+			document.getElementById("apiUpdateButton").classList.add("btn-success");
+			websocket.send("out ap s | "+apiBranch+" | "+apiCampaignId);
+			setTimeout(function() {
+				document.getElementById("apiUpdateButton").classList.remove("btn-success");
+				document.getElementById("apiUpdateButton").classList.add("btn-primary");
+			},1000);
+		//} else {
+		//	document.getElementById("apiUpdateButton").classList.remove("btn-primary");
+		//	document.getElementById("apiUpdateButton").classList.add("btn-danger");
+		//	setTimeout(function() {
+		//		document.getElementById("apiUpdateButton").classList.remove("btn-danger");
+		//		document.getElementById("apiUpdateButton").classList.add("btn-primary");
+		//	},1000);
+		//}
+	}
+	function apiOpen() {
+		websocket.send("out op f");
+	}
+	function apiSetProvider() {
+		var branch = document.getElementById("apiBranches").value;
+		if(branch == 2) {
+			document.getElementById("tiltifyAccountSet").hidden = false
+			document.getElementById("apiSelectProvider").hidden = true
+		// 	document.getElementById("tiltifyAccountType").hidden = false;
+		// 	document.getElementById("tiltifyAccountName").hidden = false;
+		// 	document.getElementById("tiltifyApplyID").hidden = false;
+		// 	document.getElementById("tiltifyCampaignSelector").hidden = true;
+		// 	document.getElementById("apiUpdateButton").hidden = true;
+		// 	document.getElementById("apiCampaignId").hidden = true;
+		} else if(branch == 0) {
+		// 	document.getElementById("tiltifyAccountType").hidden = true;
+		// 	document.getElementById("tiltifyAccountName").hidden = true;
+		// 	document.getElementById("tiltifyApplyID").hidden = true;
+		// 	document.getElementById("tiltifyCampaignSelector").hidden = true;
+		// 	document.getElementById("apiUpdateButton").hidden = false;
+		// 	document.getElementById("apiCampaignId").hidden = false;
+		} else {
+		// 	document.getElementById("tiltifyAccountType").hidden = true;
+		// 	document.getElementById("tiltifyAccountName").hidden = true;
+		// 	document.getElementById("tiltifyApplyID").hidden = true;
+		// 	document.getElementById("tiltifyCampaignSelector").hidden = true;
+		// 	document.getElementById("apiUpdateButton").hidden = true;
+		// 	document.getElementById("apiCampaignId").hidden = true;
+		}
+	}
+	function apiTiltifySetID() {
+		var accountName = document.getElementById("tiltifyAccountName").value
+		switch(document.getElementById("tiltifyAccountType").value) {
+			case 1: //team
+				websocket.send("out TL t "+accountName)
+				break;
+			case 0: //user
+			default:
+				websocket.send("out TL u "+accountName)
+				break;
+		}
+	}
+	//TITLES
+	function setTitles() {
+		var title = document.getElementById("title").value;
+		var subtitle = document.getElementById("subtitle").value;
+		if(title != "" || subtitle != "") {
+			document.getElementById("titleSetButton").classList.remove("btn-primary");
+			document.getElementById("titleSetButton").classList.add("btn-success");
+			if(title != "") {
+				websocket.send("out tt s "+title)
+			} else {
+				websocket.send("out tt c")
+			}
+			setTimeout(function() {
+				if(subtitle != "") {
+					websocket.send("out st s "+subtitle)
+				} else {
+					websocket.send("out st c")
+				}
+			},500)
+			setTimeout(function() {
+				document.getElementById("titleSetButton").classList.remove("btn-success");
+				document.getElementById("titleSetButton").classList.add("btn-primary");
+			},1000);
+		} else {
+			document.getElementById("titleSetButton").classList.remove("btn-primary");
+			document.getElementById("titleSetButton").classList.add("btn-danger");
+			setTimeout(function() {
+				document.getElementById("titleSetButton").classList.remove("btn-danger");
+				document.getElementById("titleSetButton").classList.add("btn-primary");
+			},1000);
+		}
+	}
+	
+	function copyAddr() {
+		var copyText = document.getElementById("omnibarLocation");
+		copyText.select();
+		document.execCommand("copy");
+	}
+</script>
+</body>
+</html>

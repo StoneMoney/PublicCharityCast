@@ -1,0 +1,20 @@
+{
+  "name": "charitycast",
+  "version": "1.0.0",
+  "description": "omnibar for charity overlays",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "bin":"index.js",
+  "author": "ngiano",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^6.0.1",
+    "open": "0.0.5",
+    "ws": "^5.2.1"
+  },
+  "pkg": {
+    "assets": ""
+  }
+}
